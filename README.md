@@ -5,9 +5,8 @@
 * Tomasz Okoń
 
 ## **Opis Projektu**
-```
 Projekt dotyczy optymalizacji łańcucha dostaw czterech podstawowych warzyw (ziemniaki, kapusta, buraki, marchew) od grupy sześciu producentów, przez sieć trzech magazynów-chłodni, do dziesięciu sklepów w Warszawie i okolicach. Na początku przygotowywany jest diagram procesów w metodologii BPMN 2.0, który prezentuje przepływ towaru i informacji między producentami, magazynami i sklepami. Celem jest zbudowanie modelu decyzyjnego (w AMPL) minimalizującego koszty transportu, przy jednoczesnym uwzględnieniu ograniczeń produkcyjnych, pojemności magazynów i prognozowanego popytu tygodniowego. Projekt obejmuje również przygotowanie danych (popyt, odległości, moce, pojemności) oraz analizę wyników, by wskazać optymalny plan dostaw i zarządzanie zapasami.
-```
+
 
 ## Lokalizacje
 | Typ           | Miejscowość                 | Latitude ( ° N ) | Longitude ( ° E )                   |
@@ -40,58 +39,58 @@ Projekt dotyczy optymalizacji łańcucha dostaw czterech podstawowych warzyw (zi
 Diagramy BPMN przygotowane w programie Bizagi Modeler, zdefiniowane w pliku Model-operacyjny.bpm
 
 ### Sprzedaż do magazynów
-    Proces przedstawia roczną, cykliczną współpracę pomiędzy magazynem a producentem warzyw.
+Proces przedstawia roczną, cykliczną współpracę pomiędzy magazynem a producentem warzyw.
 
-    Inicjacja po stronie magazynu
-    Każdej jesieni dział logistyki wykonuje inwentaryzację zapasów. Rzeczywisty stan magazynu jest wprowadzany do systemu ERP i archiwizowany w bazie „Historia stanu magazynu”. Na tej podstawie moduł analityczny prognozuje popyt na kolejny sezon. Jeśli przewidywane zapasy okażą się niewystarczające, system generuje listę braków.
+Inicjacja po stronie magazynu
+Każdej jesieni dział logistyki wykonuje inwentaryzację zapasów. Rzeczywisty stan magazynu jest wprowadzany do systemu ERP i archiwizowany w bazie „Historia stanu magazynu”. Na tej podstawie moduł analityczny prognozuje popyt na kolejny sezon. Jeśli przewidywane zapasy okażą się niewystarczające, system generuje listę braków.
 
-    Generowanie i wysyłka zamówień
-    Algorytm doboru dostawców (korzystający z modelu optymalizacyjnego bazującego m.in. na kosztach transportu) dobiera producentów i automatycznie tworzy zamówienia. Każde zamówienie jest przesyłane do wybranego producenta jako komunikat elektroniczny.
+Generowanie i wysyłka zamówień
+Algorytm doboru dostawców (korzystający z modelu optymalizacyjnego bazującego m.in. na kosztach transportu) dobiera producentów i automatycznie tworzy zamówienia. Każde zamówienie jest przesyłane do wybranego producenta jako komunikat elektroniczny.
 
-    Obsługa zamówienia przez producenta
-    Po otrzymaniu dokumentu producent analizuje dostępność towaru i zdolności produkcyjne.
+Obsługa zamówienia przez producenta
+Po otrzymaniu dokumentu producent analizuje dostępność towaru i zdolności produkcyjne.
 
-    Jeśli zamówienie może być zrealizowane, producent odsyła akceptację, rozpoczyna kompletację towaru, wysyła partię i wystawia fakturę.
+Jeśli zamówienie może być zrealizowane, producent odsyła akceptację, rozpoczyna kompletację towaru, wysyła partię i wystawia fakturę.
 
-    W przypadku braku możliwości wykonania zlecenia, producent wysyła odmowę, kończąc proces po swojej stronie.
+W przypadku braku możliwości wykonania zlecenia, producent wysyła odmowę, kończąc proces po swojej stronie.
 
-    Weryfikacja odpowiedzi w magazynie
-    Magazyn zbiera odpowiedzi wszystkich producentów i porównuje łączną zaakceptowaną ilość z prognozowanym zapotrzebowaniem.
+Weryfikacja odpowiedzi w magazynie
+Magazyn zbiera odpowiedzi wszystkich producentów i porównuje łączną zaakceptowaną ilość z prognozowanym zapotrzebowaniem.
 
-    Popyt pokryty – proces przechodzi do przyjęcia towaru, aktualizacji stanów i opłacenia faktur.
+Popyt pokryty – proces przechodzi do przyjęcia towaru, aktualizacji stanów i opłacenia faktur.
 
-    Popyt niepokryty – system automatycznie generuje dodatkowe zamówienia do alternatywnych producentów; pętla wysyłki i odbioru odpowiedzi powtarza się, dopóki prognozowany niedobór nie zniknie.
+Popyt niepokryty – system automatycznie generuje dodatkowe zamówienia do alternatywnych producentów; pętla wysyłki i odbioru odpowiedzi powtarza się, dopóki prognozowany niedobór nie zniknie.
 
-    Zamknięcie cyklu
-    Po pełnym zaspokojeniu popytu i zaksięgowaniu faktur, stany magazynowe są ponownie zapisywane w bazie historycznej. Dane te stanowią wejście do prognozy w kolejnym roku, domykając roczny cykl „sprzedaż do magazynów”.
+Zamknięcie cyklu
+Po pełnym zaspokojeniu popytu i zaksięgowaniu faktur, stany magazynowe są ponownie zapisywane w bazie historycznej. Dane te stanowią wejście do prognozy w kolejnym roku, domykając roczny cykl „sprzedaż do magazynów”.
 ![alt text](screens/image.png)
 ### Sprzedaż do sklepów
-    Proces odzwierciedla cotygodniową współpracę pomiędzy hurtownią (magazynem centralnym) a pojedynczym sklepem sieci.
+Proces odzwierciedla cotygodniową współpracę pomiędzy hurtownią (magazynem centralnym) a pojedynczym sklepem sieci.
 
-    Cotygodniowa inicjacja po stronie sklepu
-    W każdy piątek personel sklepu dokonuje inwentaryzacji przy-sklepowego magazynku. Stan faktyczny trafia do systemu sprzedażowego, gdzie – wraz z danymi prognostycznymi – wyliczane jest zapotrzebowanie na kolejny tydzień. Na tej podstawie system generuje dokument zamówienia.
+Cotygodniowa inicjacja po stronie sklepu
+W każdy piątek personel sklepu dokonuje inwentaryzacji przy-sklepowego magazynku. Stan faktyczny trafia do systemu sprzedażowego, gdzie – wraz z danymi prognostycznymi – wyliczane jest zapotrzebowanie na kolejny tydzień. Na tej podstawie system generuje dokument zamówienia.
 
-    Wybór i przekazanie zamówienia
-    Sklep może przesłać zamówienie do hurtowni trzema kanałami:
+Wybór i przekazanie zamówienia
+Sklep może przesłać zamówienie do hurtowni trzema kanałami:
 
-    1. aplikacją
-    2. e-mailem
-    3. telefonicznie
+1. aplikacją
+2. e-mailem
+3. telefonicznie
 
-    Niezależnie od kanału treść dokumentu trafia do centralnej kolejki zamówień w dziale obsługi hurtowni.
+Niezależnie od kanału treść dokumentu trafia do centralnej kolejki zamówień w dziale obsługi hurtowni.
 
-    Rejestracja i weryfikacja w hurtowni
-    Po scaleniu zamówień z wszystkich kanałów hurtownia sprawdza dostępność towaru oraz zdolności kompletacyjne magazynów regionalnych.
+Rejestracja i weryfikacja w hurtowni
+Po scaleniu zamówień z wszystkich kanałów hurtownia sprawdza dostępność towaru oraz zdolności kompletacyjne magazynów regionalnych.
 
-    Gdy realizacja jest możliwa – hurtownia wysyła potwierdzenie przyjęcia zamówienia.
+Gdy realizacja jest możliwa – hurtownia wysyła potwierdzenie przyjęcia zamówienia.
 
-    W razie braku towaru – zamówienie zostaje odrzucone, a proces po stronie sklepu kończy się bez dostawy.
+W razie braku towaru – zamówienie zostaje odrzucone, a proces po stronie sklepu kończy się bez dostawy.
 
-    Przydział magazynów i wysyłka towaru
-    Dla zaakceptowanych zleceń system optymalizacyjny przydziela pozycje zamówienia do konkretnych magazynów (np. M1, M2, M3), minimalizując koszt transportu i wykorzystując dostępne zapasy. Magazyny kompletują towar oraz wysyłają go do sklepu.
+Przydział magazynów i wysyłka towaru
+Dla zaakceptowanych zleceń system optymalizacyjny przydziela pozycje zamówienia do konkretnych magazynów (np. M1, M2, M3), minimalizując koszt transportu i wykorzystując dostępne zapasy. Magazyny kompletują towar oraz wysyłają go do sklepu.
 
-    Odbiór dostawy i rozliczenie
-    Sklep po odbiorze towarów aktualizuje własny stan magazynku. Hurtownia wystawia fakturę, a po jej opłaceniu koryguje stany w bazie „Historia stanu magazynów”.
+Odbiór dostawy i rozliczenie
+Sklep po odbiorze towarów aktualizuje własny stan magazynku. Hurtownia wystawia fakturę, a po jej opłaceniu koryguje stany w bazie „Historia stanu magazynów”.
 ![alt text](/screens/image2.png)
 
 ## Model optymalizacyjny
