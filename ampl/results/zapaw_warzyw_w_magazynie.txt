@@ -1,0 +1,15 @@
+ampl: display W;
+W :=
+M1 Buraki      186.56
+M1 Kapusta     167.38
+M1 Marchew     171.19
+M1 Ziemniaki   274.87
+M2 Buraki      409.87
+M2 Kapusta     120
+M2 Marchew     380
+M2 Ziemniaki   180
+M3 Buraki      172.17
+M3 Kapusta     230
+M3 Marchew     210
+M3 Ziemniaki   237.83
+;

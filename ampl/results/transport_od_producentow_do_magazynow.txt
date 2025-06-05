@@ -1,0 +1,28 @@
+ampl: display X;
+X [*,M1,*]
+:    Buraki  Kapusta  Marchew Ziemniaki    :=
+P1     0       37.38     0       34.87
+P2   180.13   100        0       90
+P3     0        0        0        0
+P4     0        0        0        0
+P5     0        0        0        0
+P6     6.43    30      171.19   150
+
+ [*,M2,*]
+:    Buraki Kapusta Marchew Ziemniaki    :=
+P1     0        0        0        0
+P2    59.87     0       80        0
+P3   190       70      150       80
+P4   160       50      150      100
+P5     0        0        0        0
+P6     0        0        0        0
+
+ [*,M3,*]
+:   Buraki Kapusta Marchew Ziemniaki    :=
+P1   82.17      0       0     97.83
+P2    0         0       0      0
+P3    0         0       0      0
+P4    0         0       0      0
+P5   90       230     210    140
+P6    0         0       0      0
+;
